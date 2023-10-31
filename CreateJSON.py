@@ -62,3 +62,29 @@ def location_message(phone_number: int, longitude_no: str, latitude_no: str, loc
             "address": location_address
         }
     }, indent=4)
+
+
+# Ask address
+def address_message(phone_number: int, customer_name: str, message: str = "Give your address details."):
+    return json.dumps({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": f"+91{phone_number}",
+        "type": "interactive",
+        "interactive": {
+            "type": "address_message",
+            "body": {
+                "text": message
+            },
+            "action": {
+                "name": "address_message",
+                "parameters": {
+                    "country": "IN",
+                    "values": {
+                        "name": customer_name,
+                        "phone_number": f"+91{phone_number}"
+                    }
+                }
+            }
+        }
+    }, indent=4)
